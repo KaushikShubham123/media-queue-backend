@@ -13,7 +13,7 @@ export class CreateJobDto {
     @MaxLength(255)
     fileName: string;
 
-    @ApiProperty()
+    @ApiProperty({ description: 'Size in bytes' })
     @IsInt()
     @Min(1)
     @Max(5368709120)
