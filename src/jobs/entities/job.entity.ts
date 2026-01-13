@@ -34,6 +34,9 @@ export class Job {
     result: any;
 
     @Column({ nullable: true })
+    callbackUrl?: string;
+
+    @Column({ nullable: true })
     errorMessage?: string;
 
     @CreateDateColumn()

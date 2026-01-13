@@ -1,5 +1,5 @@
 import { Controller, Post, Get, Delete, Param, Body, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { JobsService } from './jobs.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { JobStatus } from './enums/job-status.enum';
@@ -21,6 +21,10 @@ export class JobsController {
     }
 
     @Get()
+    @ApiQuery({ name: 'status', required: false, enum: JobStatus })
+    @ApiQuery({ name: 'fileType', required: false })
+    @ApiQuery({ name: 'page', required: false, example: 1 })
+    @ApiQuery({ name: 'limit', required: false, example: 10 })
     getAll(
         @Query('status') status?: JobStatus,
         @Query('fileType') fileType?: string,

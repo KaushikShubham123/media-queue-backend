@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsOptional, IsString, IsUrl, Max, MaxLength, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUrl, Max, MaxLength, Min } from 'class-validator';
 
 export enum FileType {
     VIDEO = 'video',
@@ -10,6 +10,7 @@ export enum FileType {
 export class CreateJobDto {
     @ApiProperty()
     @IsString()
+    @IsNotEmpty()
     @MaxLength(255)
     fileName: string;
 
