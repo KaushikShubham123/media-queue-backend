@@ -23,7 +23,7 @@ import { APP_GUARD } from '@nestjs/core';
 
       database: config.get('DB_NAME'),
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     })
   }),
   ThrottlerModule.forRoot({
