@@ -20,7 +20,7 @@ import { APP_GUARD } from '@nestjs/core';
       host: config.get('DB_HOST'),
       port: Number(config.get('DB_PORT')),
       username: config.get('DB_USER'),
-
+      password: config.get('DB_PASSWORD'),
       database: config.get('DB_NAME'),
       autoLoadEntities: true,
       synchronize: false,
