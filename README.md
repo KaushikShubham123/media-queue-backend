@@ -1,98 +1,159 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Media Processing Queue API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A backend service built with **NestJS** that simulates **asynchronous
+media processing jobs** (video, image, audio).\
+This project is focusing on clean
+architecture, validation, background processing, and API design.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+------------------------------------------------------------------------
 
-## Description
+## Tech Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+-   Node.js
+-   NestJS
+-   TypeScript
+-   PostgreSQL
+-   TypeORM (with migrations)
+-   Swagger (OpenAPI)
+-   Docker & Docker Compose (optional)
 
-## Project setup
+------------------------------------------------------------------------
 
-```bash
-$ npm install
-```
+## Features
 
-## Compile and run the project
+-   Create media processing jobs
+-   Asynchronous background job simulation
+-   Job lifecycle: `PENDING → PROCESSING → COMPLETED`
+-   Progress tracking (0--100%)
+-   Pagination & filtering
+-   Input validation using DTOs
+-   Rate limiting (10 requests / 60 seconds per IP)
+-   Swagger API documentation
+-   Environment-based configuration
+-   Dockerized setup
 
-```bash
-# development
-$ npm run start
+------------------------------------------------------------------------
 
-# watch mode
-$ npm run start:dev
+## Project Structure
 
-# production mode
-$ npm run start:prod
-```
+    src/
+     ├── jobs/
+     │   ├── jobs.controller.ts
+     │   ├── jobs.service.ts
+     │   ├── jobs.processor.ts
+     │   ├── jobs.module.ts
+     │   ├── dto/
+     │   │   └── create-job.dto.ts
+     │   ├── entities/
+     │   │   └── job.entity.ts
+     │   └── enums/
+     │       └── job-status.enum.ts
+     ├── common/
+     ├── data-source.ts
+     ├── app.module.ts
+     └── main.ts
 
-## Run tests
+------------------------------------------------------------------------
 
-```bash
-# unit tests
-$ npm run test
+## Environment Variables
 
-# e2e tests
-$ npm run test:e2e
+Create a `.env` file in the project root:
 
-# test coverage
-$ npm run test:cov
-```
+    PORT=3000
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_USER=
+    DB_PASSWORD=
+    DB_NAME=media_queue
 
-## Deployment
+------------------------------------------------------------------------
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## How to Run the Project Locally (Without Docker)
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 1. Install dependencies
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+    npm install
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 2. Ensure PostgreSQL is running
 
-## Resources
+Create a database named `media_queue`.
 
-Check out a few resources that may come in handy when working with NestJS:
+### 3. Run database migrations
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+    npm run migration:run
 
-## Support
+### 4. Start the application
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+    npm run start:dev
 
-## Stay in touch
+### 5. Access the application
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+-   API: http://localhost:3000
+-   Swagger Docs: http://localhost:3000/api/docs
 
-## License
+------------------------------------------------------------------------
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## How to Run the Project With Docker
+
+### 1. Build and start services
+
+    docker compose up --build
+
+### 2. Run migrations inside the container
+
+    docker compose exec app npm run migration:run
+
+### 3. Access the application
+
+-   API: http://localhost:3000
+-   Swagger Docs: http://localhost:3000/api/docs
+
+------------------------------------------------------------------------
+
+## How to Run Tests
+
+Basic test setup is available using NestJS defaults.
+
+    npm run test
+
+------------------------------------------------------------------------
+
+## API Documentation (Swagger)
+
+Swagger UI is available at:
+
+    GET /api/docs
+
+It documents all endpoints, request/response schemas, and validation
+rules.
+
+------------------------------------------------------------------------
+
+## Design Decisions & Trade-offs
+
+-   **cron-based background processor** is used instead of a real
+    queue (BullMQ/RabbitMQ) to keep the solution simple and
+    dependency-free.
+-   **Media files are not uploaded**; only metadata is stored and
+    processing is simulated.
+-   **TypeORM + PostgreSQL** were chosen for clarity and ease of
+    migration handling.
+-   **Migrations over synchronize** to follow production-safe practices.
+
+------------------------------------------------------------------------
+
+## Improvements With More Time
+
+-   Replace cron job with a real message queue (BullMQ / Redis)
+-   Implement webhook retries and failure handling
+-   Add more unit and e2e tests
+-   Add authentication and authorization if needed
+-   Improve logging 
+
+------------------------------------------------------------------------
+
+## Bonus Challenges Implemented
+
+-   Rate limiting (10 requests / 60 seconds per IP)
+
+------------------------------------------------------------------------
