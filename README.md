@@ -99,11 +99,7 @@ Create a database named `media_queue`.
 
     docker compose up --build
 
-### 2. Run migrations inside the container
-
-    docker compose exec app npm run migration:run
-
-### 3. Access the application
+### 2. Access the application
 
 -   API: http://localhost:3000
 -   Swagger Docs: http://localhost:3000/api/docs
