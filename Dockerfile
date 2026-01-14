@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -11,4 +11,5 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+
+CMD ["sh", "-c", "npm run migration:run && node dist/main.js"]
